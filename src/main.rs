@@ -18,7 +18,6 @@ async fn main() -> std::io::Result<()> {
         let site_root = &leptos_options.site_root;
 
         App::new()
-            .service(css)
             // serve JS/WASM/CSS from `pkg`
             .service(Files::new("/pkg", format!("{site_root}/pkg")))
             // serve other assets from the `assets` directory
@@ -44,12 +43,6 @@ async fn favicon(
     Ok(actix_files::NamedFile::open(format!(
         "{site_root}/favicon.ico"
     ))?)
-}
-
-#[cfg(feature = "ssr")]
-#[actix_web::get("/style.css")]
-async fn css() -> impl actix_web::Responder {
-    actix_files::NamedFile::open_async("./style/output.css").await
 }
 
 #[cfg(not(any(feature = "ssr", feature = "csr")))]
