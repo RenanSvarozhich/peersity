@@ -1,4 +1,5 @@
 pub mod learning;
+pub mod portal;
 
 #[cfg(feature = "ssr")]
 #[actix_web::main]

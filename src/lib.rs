@@ -1,5 +1,6 @@
 pub mod app;
 pub mod learning;
+pub mod portal;
 
 #[cfg(feature = "hydrate")]
 #[wasm_bindgen::prelude::wasm_bindgen]
