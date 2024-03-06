@@ -12,7 +12,6 @@ async fn main() -> std::io::Result<()> {
 
     let conf = get_configuration(None).await.unwrap();
     let addr = conf.leptos_options.site_addr;
-    // Generate the list of routes in your Leptos App
     let routes = generate_route_list(App);
     println!("listening on http://{}", &addr);
 
@@ -21,11 +20,8 @@ async fn main() -> std::io::Result<()> {
         let site_root = &leptos_options.site_root;
 
         App::new()
-            // serve JS/WASM/CSS from `pkg`
             .service(Files::new("/pkg", format!("{site_root}/pkg")))
-            // serve other assets from the `assets` directory
             .service(Files::new("/assets", site_root))
-            // serve the favicon from /favicon.ico
             .service(favicon)
             .leptos_routes(leptos_options.to_owned(), routes.to_owned(), App)
             .app_data(web::Data::new(leptos_options.to_owned()))
@@ -50,17 +46,10 @@ async fn favicon(
 
 #[cfg(not(any(feature = "ssr", feature = "csr")))]
 pub fn main() {
-    // no client-side main function
-    // unless we want this to work with e.g., Trunk for pure client-side testing
-    // see lib.rs for hydration function instead
-    // see optional feature `csr` instead
 }
 
 #[cfg(all(not(feature = "ssr"), feature = "csr"))]
 pub fn main() {
-    // a client-side main function is required for using `trunk serve`
-    // prefer using `cargo leptos serve` instead
-    // to run: `trunk serve --open --features csr`
     use leptos::*;
     use peersity::app::*;
     use wasm_bindgen::prelude::wasm_bindgen;

@@ -1,4 +1,4 @@
-use leptos::{component, expect_context, view, IntoView};
+use leptos::*;
 
 #[component]
 pub fn NotFound() -> impl IntoView {

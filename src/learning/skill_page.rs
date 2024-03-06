@@ -1,15 +1,41 @@
-use leptos::{component, create_signal, view, IntoView, SignalUpdate};
+use leptos::{component, create_signal, view, For, IntoView};
 
 #[component]
 pub fn SkillPage() -> impl IntoView {
-    let (count, set_count) = create_signal(0);
-    let on_click = move |_| set_count.update(|count| *count += 1);
+    view! {
+        <h1 class="text-4xl dark:text-white">Skills</h1>
+        <SkillList/>
+    }
+}
+
+#[component]
+fn SkillList() -> impl IntoView {
+    let initial_skills = vec![
+        "Rust",
+        "Java",
+        "C#",
+        "Python",
+        "Javascript",
+        "Lua",
+    ];
+
+    let (skills, _) = create_signal(initial_skills);
 
     view! {
-        <h1 class="p-6 text-4xl">"Learning"</h1>
-        <button class="bg-amber-600 hover:bg-sky-700 px-5 py-3 text-white rounded-lg" 
-            on:click=on_click>
-            "Click Me: " {count}
-        </button>
+        <div>
+            <ul>
+                <For
+                    each=skills
+                    key=|skill| skill.to_string()
+                    children=move |skill| {
+                        view! {
+                            <li>
+                                {skill}
+                            </li>
+                        }
+                    }
+                />
+            </ul>
+        </div>
     }
 }

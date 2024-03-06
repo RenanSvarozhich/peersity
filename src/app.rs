@@ -2,8 +2,8 @@ use leptos::*;
 use leptos_meta::*;
 use leptos_router::*;
 use crate::portal::layout::Layout;
-use crate::learning::routes::LearningRoutes;
 use crate::portal::not_found_page::NotFound;
+use crate::learning::routes::LearningRoutes;
 use crate::portal::routes::PortalRoutes;
 
 #[component]
